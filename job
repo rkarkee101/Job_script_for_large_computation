@@ -1,0 +1,26 @@
+#!/bin/bash
+
+#Submit this script with: sbatch filename
+
+#SBATCH --time=16:00:00   # walltime 
+#SBATCH --nodes=1   # number of nodes
+#SBATCH --ntasks-per-node=256   # number of tasks per node
+#SBATCH --job-name=HfTe5   # job name
+#SBATCH --partition=standard   # partition name
+#SBATCH --no-requeue   # do not requeue when preempted and on node failure
+#SBATCH --signal=30@20  # send signal to job at [seconds] before end
+
+module swap PrgEnv-cray PrgEnv-intel
+module load cmake
+
+for i in {0001..0003}; do
+    echo "Running task for input DISP.scf_scf.in.$i"
+    srun -n 256 /users/rkarkee/q-e-qe-7.3/bin/pw.x -pd .true. < DISP.scf_scf.in.$i &> DISP.scf_sc.in.$i.out
+
+    # Convert $i to an integer to remove leading zeros. If you need the folders, you can comment out the following.
+    tmp_folder="tmp_$((10#$i))"  # Removes leading zeros
+    if [ -d "$tmp_folder" ]; then
+        echo "Removing temporary folder: $tmp_folder"
+        rm -rf "$tmp_folder"
+    fi
+done
