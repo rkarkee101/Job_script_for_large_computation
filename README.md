@@ -14,4 +14,7 @@ Make the necessary changes in original sample job file as per your systems and f
 
 Edit the generate.sh script, you just need to edit step and end. You can also edit  "%04d" depending on your input files. For i =1, this generates 0001 and "%03d" generates 001, and so on.
 
-Then run bash generate.sh or first do ``chmod +x generate.sh`` and then ``./generate.sh``
+Then run ``bash generate.sh`` or first do ``chmod +x generate.sh`` and then ``./generate.sh``
+
+Similarly for ``bash submit.sh`` or ``chmod +x submit.sh`` and then ``./submit.sh``
+
