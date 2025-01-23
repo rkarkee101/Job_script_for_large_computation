@@ -18,7 +18,7 @@ for i in {0001..0003}; do
     srun -n 256 /users/rkarkee/q-e-qe-7.3/bin/pw.x -pd .true. < DISP.scf_scf.in.$i &> DISP.scf_sc.in.$i.out
 
     # Convert $i to an integer to remove leading zeros. If you need the folders, you can comment out the following.
-    tmp_folder="tmp_$((10#$i))"  # Removes leading zeros
+    tmp_folder="tmp_$((10#$i)).save"  # Removes leading zeros
     if [ -d "$tmp_folder" ]; then
         echo "Removing temporary folder: $tmp_folder"
         rm -rf "$tmp_folder"
